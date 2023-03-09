@@ -1,0 +1,95 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    margin-bottom: 5vh;
+    font-family: Clear Sans;
+    color: #776f65;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bbada0;
+    height: 20rem;
+    width: 20rem;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.board-wrapper {
+    .board-row {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        .board-tile {
+            border-radius: 5px;
+            border-style: none;
+            height: 4rem;
+            width: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bolder;
+            font-size: 25px;
+            font-family: Clear Sans;
+
+            &--zero {
+                color: #ccc0b4;
+                background-color: #ccc0b4;
+            }
+            &--two {
+                color: #776e65;
+                background-color: #eee4da;
+            }
+            &--four {
+                color: #776e65;
+                background-color: #eedfc8;
+            }
+            &--eight {
+                color: white;
+                background-color: #f2b179;
+            }
+            &--sixteen {
+                color: white;
+                background-color: #ec8d55;
+            }
+            &--thirtytwo {
+                color: white;
+                background-color: #f57c5f;
+            }
+            &--sixtyfour {
+                color: white;
+                background-color: #ea5a38;
+            }
+            &--onetwentyeight {
+                color: white;
+                background-color: #f3d96b;
+            }
+            &--twofiftysix {
+                color: white;
+                background-color: #f1d04b;
+            }
+            &--fivetwelve {
+                color: white;
+                background-color: #e4c02a;
+            }
+            &--tenhundredtwentyfour {
+                color: white;
+                background-color: #e3ba14;
+            }
+            &--twentyhundredfortyeight {
+                color: white;
+                background-color: #ebc300;
+            }
+        }
+    }
+}

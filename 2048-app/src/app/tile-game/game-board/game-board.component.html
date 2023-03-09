@@ -1,1 +1,10 @@
-<app-game-tile></app-game-tile>
+<p>Your next goal is to get to the 8192 tile!</p>
+<div class="board-container">
+    <div class="board-wrapper">
+        <div class="board-row" *ngFor="let row of board">
+            <div [ngClass]="getTileColor(tile)" *ngFor="let tile of row">
+                {{ tile }}
+            </div>
+        </div>
+    </div>
+</div>
