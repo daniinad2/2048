@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Clear Sans';
+    src: url('../src/assets/ClearSans-Regular.ttf');
+}
+
+body{
+    background-color: #faf8ef;
+}
