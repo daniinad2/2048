@@ -1,0 +1,70 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    font-family: Clear Sans;
+}
+
+.header-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    border-radius: 5px;
+    width: 15vh;
+    height: 15vh;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: #ecc400;
+}
+.header-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-container {
+    background-color: #bbada0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    width: 14vh;
+    color: #ede3d5;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.number-color {
+    color: white;
+}
+
+.button-header {
+    background-color: #ed995b;
+    width: 14vh;
+    height: 6vh;
+    font-size: 0.65rem;
+    text-align: center;
+    font-weight: bold;
+    padding: 0px;
+    color: white;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

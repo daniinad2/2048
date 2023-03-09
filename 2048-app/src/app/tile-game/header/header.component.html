@@ -1,9 +1,19 @@
 <div class="header-container">
-    <div class="game-row">
-        <div class="game-col">
-            <div class="game-logo">2048</div>
+    <div class="header-col">
+        <div class="game-logo">2048</div>
+    </div>
+    <div class="header-col">
+        <div class="score-container">
+            <span>SCORE</span>
+            <span class="number-color">{{ score }}</span>
         </div>
-        <div class="game-col"></div>
-        <div class="game-col"></div>
+        <button class="button-header">MENU</button>
+    </div>
+    <div class="header-col">
+        <div class="score-container">
+            <span>BEST</span>
+            <span class="number-color">{{ best }}</span>
+        </div>
+        <button class="button-header">LEADERBOARD</button>
     </div>
 </div>
