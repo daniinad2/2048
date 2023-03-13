@@ -7,13 +7,16 @@
             <span>SCORE</span>
             <span class="number-color">{{ score }}</span>
         </div>
-        <button class="button-header">MENU</button>
+        <button class="button-header" (click)="openModalMenu()">MENU</button>
     </div>
     <div class="header-col">
         <div class="score-container">
             <span>BEST</span>
             <span class="number-color">{{ best }}</span>
         </div>
-        <button class="button-header">LEADERBOARD</button>
+        <button class="button-header" (click)="openLeaderboard()">
+            LEADERBOARD
+        </button>
     </div>
 </div>
+<app-menu-modal></app-menu-modal>
