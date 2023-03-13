@@ -1,0 +1,11 @@
+<ng-container *ngIf="display | async as display">
+    <section [class.open]="display === true" (click)="closeMenuModal()">
+        <div class="modal-flex-container" (click)="$event.stopPropagation()">
+            <button class="modal-button" (click)="newGame()">New game</button>
+            <button class="modal-button" (click)="saveGame()">Save game</button>
+            <button class="modal-button" (click)="closeMenuModal()">
+                Back to game
+            </button>
+        </div>
+    </section>
+</ng-container>
