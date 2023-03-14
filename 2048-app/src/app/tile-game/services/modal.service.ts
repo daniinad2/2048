@@ -11,8 +11,6 @@ export class ModalService {
   public newGameEvent = new Subject<boolean>()
   public saveGameEvent = new Subject<boolean>()
 
-  public scoreChanged = new Subject<number>()
-
   watch(): Observable<boolean> {
     return this.display.asObservable()
   }
@@ -32,9 +30,4 @@ export class ModalService {
   saveGame() {
     this.saveGameEvent.next(true)
   }
-
-  scoreUpdate(score: number) {
-    this.scoreChanged.next(score)
-  }
-
 }
