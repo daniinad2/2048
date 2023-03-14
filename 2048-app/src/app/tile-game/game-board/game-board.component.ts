@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { GameService } from '../services/game-service.service';
 import { ModalService } from '../services/modal.service';
 
 type FreeTile = {
@@ -23,7 +24,7 @@ export class GameBoardComponent implements OnInit {
   newGameEvent: Subscription
   saveGameEvent: Subscription
 
-  constructor(private modalService: ModalService) {
+  constructor(private modalService: ModalService, private gameService: GameService) {
     this.newGameEvent = this.modalService.newGameEvent.subscribe(() => {
       this.initGame()
     })
@@ -46,6 +47,15 @@ export class GameBoardComponent implements OnInit {
       console.log("Freetiles: " + JSON.parse(retrievedFreeTiles))
     }*/
     //else {
+
+    const highscoreFromStorage = localStorage.getItem('UserHighScore')
+    if (highscoreFromStorage != null) {
+      this.gameService.highscoreUpdate(+highscoreFromStorage)
+    }
+    else {
+      this.gameService.highscoreUpdate(0)
+    }
+
     this.board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
     this.initTakenTileArray()
     this.spawnRandomValueOnBoard()
@@ -93,36 +103,52 @@ export class GameBoardComponent implements OnInit {
   }
 
   checkGameOver() {
-    /*let noMoreMove = true
-    for (let row = 0; row < GameBoardComponent.ROW_LENGTH; row++) {
-      for (let col = 0; col < GameBoardComponent.COL_LENGTH; col++) {
-        if (
-          this.board[row][col - 1] != undefined &&
-          (this.board[row][col - 1] == this.board[row][col] || this.board[row][col - 1] == 0)) {
-          noMoreMove = false
-        } else if (
-          this.board[row][col + 1] != undefined &&
-          (this.board[row][col + 1] == this.board[row][col] || this.board[row][col + 1] == 0)) {
-          noMoreMove = false
-        } else if (
-          this.board[row - 1][col] != undefined &&
-          (this.board[row - 1][col] == this.board[row][col] || this.board[row][col - 1] == 0)
-        ) {
-          noMoreMove = false
-        } else if (
-          this.board[row + 1][col] != undefined &&
-          (this.board[row + 1][col] == this.board[row][col] || this.board[row][col + 1] == 0)
-        ) {
-          noMoreMove = false
+    let noMoreMove = true
+
+    if (this.freeTiles.length == 0) {
+      if (this.board[0][0] == this.board[0][1] || this.board[0][0] == this.board[1][0]) {
+        noMoreMove = false
+      }
+      if (
+        this.board[0][GameBoardComponent.COL_LENGTH - 1] == this.board[0][GameBoardComponent.COL_LENGTH - 2] ||
+        this.board[0][GameBoardComponent.COL_LENGTH - 1] == this.board[1][GameBoardComponent.COL_LENGTH - 1]) {
+        noMoreMove = false
+      }
+      if (
+        this.board[GameBoardComponent.ROW_LENGTH - 1][0] == this.board[GameBoardComponent.ROW_LENGTH - 1][1] ||
+        this.board[GameBoardComponent.ROW_LENGTH - 1][0] == this.board[GameBoardComponent.COL_LENGTH - 2][0]) {
+        noMoreMove = false
+      }
+      if (
+        this.board[GameBoardComponent.ROW_LENGTH - 1][GameBoardComponent.COL_LENGTH - 1] == this.board[GameBoardComponent.ROW_LENGTH - 1][GameBoardComponent.COL_LENGTH - 2] ||
+        this.board[GameBoardComponent.ROW_LENGTH - 1][GameBoardComponent.COL_LENGTH - 1] == this.board[GameBoardComponent.ROW_LENGTH - 2][GameBoardComponent.COL_LENGTH - 1]) {
+        noMoreMove = false
+      }
+
+      if (noMoreMove == true) {
+        for (let row = 1; row < GameBoardComponent.ROW_LENGTH - 1; row++) {
+          for (let col = 1; col < GameBoardComponent.COL_LENGTH - 1; col++) {
+            if (this.board[row][col] == this.board[row][col - 1]) {
+              noMoreMove = false
+            } else if (this.board[row][col] == this.board[row][col + 1]) {
+              noMoreMove = false
+            } else if (this.board[row][col] == this.board[row + 1][col]) {
+              noMoreMove = false
+            } else if (this.board[row][col] == this.board[row][col - 1]) {
+              noMoreMove = false
+            }
+          }
         }
       }
     }
+    else {
+      noMoreMove = false
+    }
     if (noMoreMove == true) {
-      alert('Game over!')
       localStorage.setItem('UserHighScore', JSON.stringify(this.userScore))
-    }*/
-
-    // TODO working game over mechanic and highscore save
+      alert('Game over!')
+      this.initGame()
+    }
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -186,7 +212,7 @@ export class GameBoardComponent implements OnInit {
               this.board[row][col] = 0
               this.addToFreeTile()
               this.userScore += this.board[row - 1][col]
-              this.modalService.scoreUpdate(this.userScore)
+              this.gameService.scoreUpdate(this.userScore)
               isMerged = true
               movedATile = true
             }
@@ -214,7 +240,7 @@ export class GameBoardComponent implements OnInit {
               this.board[row][col] = 0
               this.addToFreeTile()
               this.userScore += this.board[row + 1][col]
-              this.modalService.scoreUpdate(this.userScore)
+              this.gameService.scoreUpdate(this.userScore)
               isMerged = true
               movedATile = true
             }
@@ -242,7 +268,7 @@ export class GameBoardComponent implements OnInit {
               this.board[row][col] = 0
               this.addToFreeTile()
               this.userScore += this.board[row][col + 1]
-              this.modalService.scoreUpdate(this.userScore)
+              this.gameService.scoreUpdate(this.userScore)
               isMerged = true
               movedATile = true
             }
@@ -269,7 +295,7 @@ export class GameBoardComponent implements OnInit {
               this.board[row][col + 1] = 0
               this.addToFreeTile()
               this.userScore += this.board[row][col]
-              this.modalService.scoreUpdate(this.userScore)
+              this.gameService.scoreUpdate(this.userScore)
               isMerged = true
               movedATile = true
             }
