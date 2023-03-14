@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Subscription } from 'rxjs'
+import { GameService } from '../services/game-service.service'
 import { ModalService } from '../services/modal.service'
 
 @Component({
@@ -9,13 +10,18 @@ import { ModalService } from '../services/modal.service'
 })
 export class HeaderComponent {
   score = 0
-  best = 50300
+  best = 0
 
   scoreChanged: Subscription
+  highscoreChanged: Subscription
 
-  constructor(private modalService: ModalService) {
-    this.scoreChanged = this.modalService.scoreChanged.subscribe((score: number) => {
+  constructor(private modalService: ModalService, private gameService: GameService) {
+    this.scoreChanged = this.gameService.scoreChanged.subscribe((score: number) => {
       this.score = score
+    })
+
+    this.highscoreChanged = this.gameService.highscoreChanged.subscribe((highscore: number) => {
+      this.best = highscore
     })
   }
 
